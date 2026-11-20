@@ -1,121 +1,87 @@
-# تعريب Factorio 2.1.24 — عربي كامل
+# Factorio 2.1.24 Arabic Translation | تعريب Factorio
 
-ترجمة عربية كاملة ومبنية حصريًا على ملفات `en` الرسمية للعبة **Factorio 2.1.24 (build 87808)**.
-تعمل مع اللعبة الأساسية وتوسعة **Space Age** وجودة **Quality** والسكك المرتفعة **Elevated Rails** والمعاد تدويره **Recycler**، وتشمل الحملات والسيناريوهات والدروس التعليمية.
+> **ابنِ مصنعك… وخلي كل تفاصيل Factorio بالعربي.**
+>
+> Play Factorio 2.1.24 in connected Arabic. This community translation patch includes **8,291 strings**, right-to-left reading order, and the Space Age content.
+
+[⬇ Download the latest release](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/releases/latest) · [Report a translation issue](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/issues/new)
+
+**Supported game build:** Factorio 2.1.24 (build 87808) · **Install type:** manual locale patch · **Tested on:** Linux Mint 22.3
+
+> This is a manual locale patch, not a Mod Portal mod. It installs Arabic locale files into the Factorio game folder and sets the game locale to `ar`.
+
+## What’s included
+
+| Item | Details |
+|---|---|
+| Game version | Factorio 2.1.24 — build 87808 |
+| Translation | 8,291 translatable strings across 29 CFG files |
+| Content | Base game, Space Age, Quality, Elevated Rails, Recycler, campaigns, scenarios, and tutorials |
+| Arabic display | Connected letter shapes and right-to-left reading order, prepared for Factorio’s text renderer |
+| Tested | Linux Mint 22.3 / Cinnamon / X11; other platforms have not been tested by this project |
+
+## Preview
+
+![Factorio 2.1.24 Arabic localization preview](screenshot.png)
+
+## Quick installation
+
+1. Download `Factorio_2.1.24_Arabic_Locale.zip` from the [latest release](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/releases/latest).
+2. Close Factorio completely.
+3. Extract the archive into the Factorio installation folder that contains both `data` and `bin`. Keep the archive’s folder structure.
+4. In `config/config.ini`, set the value under `[general]` to:
+
+   ```ini
+   locale=ar
+   ```
+
+5. Start Factorio. If needed, choose **Settings → Interface → Language → العربية**.
+
+Use this patch only with **Factorio 2.1.24 build 87808**. A game update or Steam file verification can restore the original files; reinstall the matching release afterward. See the detailed Arabic instructions below.
+
+---
+
+## التفاصيل بالعربي
+
+تعريب مجتمعي كامل مبني على ملفات اللغة الإنجليزية للعبة **Factorio 2.1.24 (build 87808)**. يشمل اللعبة الأساسية وتوسعة **Space Age** ومحتوى **Quality** و**Elevated Rails** و**Recycler**، إضافةً إلى الحملات والسيناريوهات والدروس التعليمية.
 
 | التفصيل | القيمة |
 |---|---|
 | إصدار اللعبة المدعوم | 2.1.24 — build 87808 |
-| عدد الملفات | 29 ملف `CFG` + `info.json` |
-| عدد النصوص | 8,291 نصًا (مطابقة لبنية `en`) |
-| الاتجاه | RTL مع حروف متصلة وتشكيل بصري |
-| النصوص الطويلة | مُغلَّفة مسبقًا لتبقى مرتبة داخل التلميحات |
-| حالة الاختبار | مُجرَّبة على Linux — لا توجد أخطاء locale |
+| عدد الملفات | 29 ملف CFG + ملف info.json |
+| عدد النصوص | 8,291 نصًا، مطابقة لمفاتيح ملفات `en` |
+| عرض العربية | حروف متصلة واتجاه قراءة من اليمين إلى اليسار، مجهّز لمحرك عرض اللعبة |
+| الاختبار | Linux Mint 22.3 / Cinnamon / X11؛ الأنظمة الأخرى لم تُختبر في هذا المشروع |
 
-## هل اللعبة 100% عربية؟
+### هل اللعبة 100% عربية؟
 
-نعم، **كل النصوص القابلة للترجمة عربية**: 8,291 من 8,291.
+كل النصوص القابلة للترجمة في الحزمة عربية: **8,291 من 8,291**. تبقى بعض الرموز التقنية وأسماء المنتجات والوحدات كما هي حتى لا يتغير معناها أو تتعطل وسوم اللعبة. أمثلة: `Factorio`، `Steam`، `Alt`، `°C`، `__1__`، ووسوم مثل `[entity=...]`.
 
-توجد استثناءات تقنية موثقة لا تُترجم حتى لا يتعطل المحرك أو تتغير دلالة الرموز:
+### طريقة التركيب
 
-- أسماء المنتجات والمنصات: `Factorio`، `Steam`، `Space Age` عند اللزوم.
-- خيار `Alt` في `وضع Alt`.
-- وحدات وبادئات مثل `hPa` و`k` و`M` و`°C` و`m/s²`.
-- أبعاد الكيانات مثل `1x1` و`1x2` و`x2`.
-- وسوم Factorio والمتغيرات: `__1__`، `__CONTROL__...__`، `[entity=...]`، `[font=...]`.
+1. أغلق اللعبة تمامًا قبل التركيب.
+2. افتح مجلد Factorio الذي يحتوي على المجلدين `data` و`bin`.
+3. فك ضغط الحزمة داخل هذا المجلد مباشرةً، مع الحفاظ على المجلدات الموجودة داخل الأرشيف. لا تفكها داخل `data` أو `locale`.
+4. افتح `config/config.ini`، وتحت القسم `[general]` غيّر قيمة `locale` إلى:
 
-هذه الاستثناءات موثقة داخل الحزمة ولا تُعد نصوصًا غير مترجمة.
+   ```ini
+   locale=ar
+   ```
 
-## صورة من داخل اللعبة
+5. شغّل اللعبة، واختر **الإعدادات ← الواجهة ← اللغة ← العربية (ar)** إذا لم تكن مختارة.
 
-![الواجهة العربية في Factorio 2.1.24](screenshot.png)
+لا تحذف مجلدات `en`؛ اللعبة تستخدمها كمرجع. إذا أنشأ برنامج فك الضغط مجلدًا باسم الأرشيف، انسخ محتوى مجلد `data` إلى مجلد اللعبة الذي يحتوي على مجلد `data` الأصلي.
 
-## التحميل
+### الإبلاغ عن خطأ أو المساعدة في تحسين التعريب
 
-حمّل الملف المضغوط من قسم **Releases** في هذا المستودع، أو من الملف الموجود في جذر المستودع:
+افتح [بلاغًا جديدًا](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/issues/new)، وأرفق إصدار اللعبة، والنص الإنجليزي، والترجمة الحالية، واقتراحك العربي. هذا يساعد على مراجعة المصطلحات وإصلاح الأخطاء.
 
-`Factorio_2.1.24_Arabic_Locale.zip`
+### استعادة الإنجليزية
 
-## طريقة التركيب — مهم اقرأها كلها
+غيّر `locale=ar` إلى `locale=en` في `config/config.ini`. لاستعادة ملفات اللعبة الأصلية، استخدم ميزة التحقق من الملفات في Steam أو أعد الملفات الأصلية من نسخة احتياطية. بعد تحديث اللعبة، استخدم حزمة مطابقة للإصدار الجديد.
 
-1. **أغلق اللعبة تمامًا** قبل التركيب.
-2. افتح مجلد اللعبة الذي يحتوي المجلدين `data` و `bin`.
-   - على لينكس غالبًا: مجلد اللعبة الذي يشبه `.../Factorio/game/`
-   - على ويندوز غالبًا: `C:\Program Files\Factorio\`
-3. فك الضغط **هنا مباشرةً** داخل هذا المجلد (Extract here / استخراج هنا).
-4. الملفات ستتوزع تلقائيًا إلى المسارات الصحيحة:
+### الإسناد
 
-```text
-data/core/locale/ar/
-data/base/locale/ar/
-data/space-age/locale/ar/
-data/quality/locale/ar/
-data/elevated-rails/locale/ar/
-data/recycler/locale/ar/
-data/base/campaigns/.../locale/ar/
-data/base/scenarios/.../locale/ar/
-data/base/tutorials/.../locale/ar/
-```
+هذا التعريب غير رسمي، ويستخدم ملفات `en` من Factorio 2.1.24 مرجعًا بنيويًا. بدأت المراجعة من مسودة مجتمعية من مشروع [F2lcon01/factorio01](https://github.com/F2lcon01/factorio01)، ثم روجعت النصوص مقابل الملفات الإنجليزية وأعيدت صياغة المصطلحات والجمع والأسلوب.
 
-5. افتح `config/config.ini` الموجود داخل مجلد اللعبة، وابحث داخل القسم `[general]` عن السطر:
-
-```ini
-locale=auto
-```
-
-أو أي قيمة أخرى، وبدّله إلى:
-
-```ini
-locale=ar
-```
-
-> ملاحظة مهمة: في ملف `config.ini` المفتاح اسمه **`locale`** وليس `language`. إذا تركته `auto` فقد لا تظهر العربية رغم أن الملفات مركّبة. هذه هي التفصيلة الصغيرة التي ينساها معظم الناس.
-
-يمكن فعل ذلك من الطرفية من داخل مجلد اللعبة على لينكس:
-
-```bash
-grep -q '^locale=' config/config.ini \
-  && sed -i 's/^locale=.*/locale=ar/' config/config.ini \
-  || echo 'locale=ar' >> config/config.ini
-```
-
-6. شغّل اللعبة. من **الإعدادات ← اللغة** اختر **العربية (ar)** إن لم تكن مختارة.
-
-## ملاحظات مهمة
-
-- **لا تفك الضغط داخل `data`** ولا داخل `locale`؛ المسارات مضمّنة في الملف المضغوط.
-- **لا تحذف مجلدات `en`**؛ اللعبة تحتاجها كمرجع تقني.
-- إذا أنشأ برنامج الاستخراج مجلدًا باسم الملف المضغوط، انسخ محتوى مجلد `data` إلى مجلد اللعبة الذي يحتوي `data` الأصلي.
-- بعد كل تحديث للعبة، استخدم حزمة مطابقة لإصدار اللعبة الجديد.
-- إذا أعاد Steam التحقق من ملفات اللعبة واستبدل الملفات، أعد فك الضغط ثم تأكد من `locale=ar`.
-
-## ما الذي اختُبر؟
-
-- Factorio **2.1.24 build 87808، linux64، full + Space Age**.
-- النظام: **Linux Mint 22.3**، جلسة **Cinnamon / X11**.
-- اللعبة أقلعت بـ `Lang: ar` دون أخطاء locale.
-- ظهرت نصوص التحميل والواجهة بالعربية بحروف متصلة واتجاه صحيح.
-- تطابق 29 ملفًا و8,291 نصًا مع ملفات `en` المرجعية.
-- لا مفاتيح ناقصة ولا زائدة، ولا تعارض في الوسوم أو المتغيرات أو الكميات.
-
-## استكشاف الأخطاء
-
-| المشكلة | الحل |
-|---|---|
-| اللغة لا تظهر عربية | تأكد أن `config/config.ini` فيه `locale=ar` ثم أعد تشغيل اللعبة |
-| الحروف متقطعة أو مقلوبة | أعد تشغيل اللعبة؛ الملفات مشكّلة ومعكوسة خصيصًا لمحرك 2.1.24 |
-| لا شيء تغيّر بعد فك الضغط | غالبًا فككت الضغط داخل مجلد خاطئ؛ أعد المحاولة في مجلد اللعبة الذي يحتوي `data` و `bin` |
-| ظهر مجلد باسم الملف المضغوط | انسخ محتواه من `data` إلى مجلد اللعبة |
-| عادت الإنجليزية بعد تحديث اللعبة | أعد تركيب الحزمة المطابقة للإصدار الجديد |
-
-## الإزالة
-
-بدّل `locale` إلى `en` في `config/config.ini`، ثم احذف مجلدات `locale/ar` داخل `data` إذا أردت العودة الكاملة.
-
-## الإسناد والترخيص
-
-- المرجع البنيوي: ملفات `en` الرسمية في Factorio 2.1.24.
-- استُخدمت مسودة مرجعية من مشروع `F2lcon01/factorio01` كنقطة انطلاق، ثم رُوجعت النصوص بالكامل مقابل `en`، وأُعيد بناء المصطلحات والجمع والأسلوب وإصلاح الأخطاء.
-- Factorio وSpace Age علامتان تجاريتان لشركة Wube Software. هذا التعريب غير رسمي.
-
-راجع رخصة المصدر الأصلي قبل إعادة النشر التجاري أو تضمينه في حزمة أخرى.
+Factorio وSpace Age علامتان تجاريتان لشركة Wube Software. راجع رخصة المصدر قبل إعادة نشر الحزمة أو تضمينها في مشروع آخر.

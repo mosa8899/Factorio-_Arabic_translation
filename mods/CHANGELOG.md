@@ -1,0 +1,15 @@
+# سجل التحديثات | Changelog
+
+## 2026-11-25 — تعريب المودات (إصدار 1)
+
+- أضفنا **114 مود مترجمة للعربية** (≈23,524 سطر نصي) تغطّي:
+  - سلسلة **Bob's Mods**، **Angel's Mods**، **Pyanodon's Mods**، **Space Exploration**، **Factorissimo**، **helmod**، **nullius**، **real-industrial-chemistry**، **planet-muluna** وغيرها.
+  - مودات واجهة وأدوات: FactorySearch، RateCalculator، Milestones، Todo-List، StatsGui، Mining Patch Planner… إلخ.
+- أضفنا **37 مود جرافيك/مكتبة** بلا نصوص عشان الحزمة تكون كاملة، جاهزة للنسخ.
+- أضفنا [كتالوج المودات](mods/README.md) فيه: وصف كل مود، رابطه الرسمي في Mod Portal، واسم الملف.
+- أضفنا [`mods/apply_ar.py`](mods/apply_ar.py) لتطبيق التعريب على موداتك الحالية تلقائياً.
+- أضفنا [`mods/locales/`](mods/locales/) فيه ملفات `locale/ar/` الخام لكل مود على حدة.
+- الترجمة: سياقية واحترافية (مش حرفية)، بالمفاتيح والوسوم كما هي، مع تدقيق آلي لكل ملف (**0 أخطاء**).
+
+### ملاحظة
+التعريب ده مكمّل لتعريب اللعبة نفسها (الكور + Space Age) الموجود في الحزمة الرئيسية للمستودع.

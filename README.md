@@ -4,7 +4,7 @@
 >
 > Play Factorio 2.1.24 in connected Arabic. This community translation patch includes **8,291 strings**, right-to-left reading order, and the Space Age content.
 
-[⬇ Download the latest release](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/releases/latest) · [Report a translation issue](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/issues/new)
+[⬇ Download the latest release](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/releases/latest) · [🧩 Mod catalog](mods/README.md) · [📝 Changelog](CHANGELOG.md) · [Report an issue](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/issues/new)
 
 **Supported game build:** Factorio 2.1.24 (build 87808) · **Install type:** manual locale patch · **Tested on:** Linux Mint 22.3
 
@@ -19,6 +19,26 @@
 | Content | Base game, Space Age, Quality, Elevated Rails, Recycler, campaigns, scenarios, and tutorials |
 | Arabic display | Connected letter shapes and right-to-left reading order, prepared for Factorio’s text renderer |
 | Tested | Linux Mint 22.3 / Cinnamon / X11; other platforms have not been tested by this project |
+
+## ترجمة المودات | Mod translations 🧩
+
+بعد تعريب اللعبة نفسها (الكور + **Space Age**)، أضفنا كذلك ترجمة عربية احترافية لـ **114 مود**، مع حزمة كاملة تضم 37 مود جرافيك/مكتبة بلا نصوص (151 مود جاهزة للنسخ دفعة واحدة).
+
+| البند | التفصيل |
+|---|---|
+| مودات مترجمة | 114 مود (≈23,524 سطراً) |
+| مودات جرافيك/مكتبات | 37 مود (نسخة أصلية بلا نصوص) |
+| التغطية | Bob's، Angel's، Pyanodon's، Space Exploration، Factorissimo، helmod، nullius، real-industrial-chemistry، planet-muluna، وأدوات الواجهة… |
+| الجودة | ترجمة سياقية غير حرفية + تدقيق آلي لكل ملف (0 أخطاء) |
+
+- 📖 **[كتالوج المودات](mods/README.md)** — لكل مود: شنو يعمل، رابطه الرسمي في Mod Portal، واسم الملف.
+- 📦 **[حزمة التعريب](../../releases/latest)** — `Mods_Arabic_Locale_Pack.zip` فيه ملفات `locale/ar/` لكل مود.
+- 🛠️ **[سكربت التطبيق](mods/apply_ar.py)** — يضيف التعريب لموداتك الحالية تلقائياً (`python3 mods/apply_ar.py <التعريب> <مجلد_المودات>`).
+- 📝 **[سجل التحديثات](CHANGELOG.md)** — آخر الإضافات.
+
+> تعريب المودات مكمّل لتعريب اللعبة الأساسية؛ استخدم الحزمة الرئيسية في المستودع لتعريب Factorio نفسها، ثم انسخ المودات من الكتالوج.
+
+---
 
 ## Preview
 
@@ -85,3 +105,9 @@ Use this patch only with **Factorio 2.1.24 build 87808**. A game update or Steam
 هذا التعريب غير رسمي، ويستخدم ملفات `en` من Factorio 2.1.24 مرجعًا بنيويًا. بدأت المراجعة من مسودة مجتمعية من مشروع [F2lcon01/factorio01](https://github.com/F2lcon01/factorio01)، ثم روجعت النصوص مقابل الملفات الإنجليزية وأعيدت صياغة المصطلحات والجمع والأسلوب.
 
 Factorio وSpace Age علامتان تجاريتان لشركة Wube Software. راجع رخصة المصدر قبل إعادة نشر الحزمة أو تضمينها في مشروع آخر.
+
+---
+
+## التحديثات | Updates
+
+آخر تحديث: تعريب المودات (114 مود + 37 جرافيك) — راجع [CHANGELOG.md](CHANGELOG.md) و[سجل المودات](mods/CHANGELOG.md).

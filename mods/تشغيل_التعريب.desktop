@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=تعريب المودات
+Comment=تشغيل تعريب مودات Factorio وإظهار النتيجة
+Exec=bash -c 'cd "$(dirname "%f")"; bash run.sh; echo; read -r -p "اضغط Enter للإغلاق..."'
+Terminal=true
+Icon=utilities-terminal
+Categories=Game;Utility;
+StartupNotify=false

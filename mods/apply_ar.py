@@ -89,6 +89,7 @@ def main():
         mp.setdefault(k, keys[k])
 
     patched = 0
+    log = ['=== بدء التعريب ===', f'مجلد المودات: {a.base}', f'مجلد التعريب: {loc_root}', '']
     items = []
     for name in sorted(os.listdir(a.base)):
         full = os.path.join(a.base, name)
@@ -117,10 +118,22 @@ def main():
         if not ar_files:
             continue
         n = patch_zip(full, ar_files, a.dry_run) if is_zip else patch_dir(full, ar_files, a.dry_run)
-        print(('🔍 ' if a.dry_run else '✅ ') + f'{label}  ←  {n} ملف عربي')
+        line = ('🔍 ' if a.dry_run else '✅ ') + f'{label}  ←  {n} ملف عربي'
+        print(line); log.append(line)
         patched += 1
 
-    print(f'\nالنتيجة: {patched} مود تعرّب.' + (' (معاينة فقط)' if a.dry_run else ''))
+    result = f'النتيجة: {patched} مود تعرّب.' + (' (معاينة فقط)' if a.dry_run else '')
+    print('\n' + result)
+    log.append('')
+    log.append(result)
+    if patched == 0:
+        tip = '⚠️ ما لقيت أي مود مطابق. تأكد فكّيت الحزمة داخل مجلد mods نفسه (جنب المودات).'
+        print(tip); log.append(tip)
+    log.append('=== انتهى ===')
+    try:
+        open(os.path.join(a.base, 'translation_result.txt'), 'w', encoding='utf-8').write('\n'.join(log) + '\n')
+    except Exception:
+        pass
     return 0
 
 if __name__ == '__main__':

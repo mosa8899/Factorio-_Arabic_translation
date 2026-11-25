@@ -2,6 +2,8 @@
 
 > **ابنِ مصنعك… وخلي كل تفاصيل Factorio بالعربي.**
 >
+https://github.com/vaibhavvikas/factorio-mod-downloader
+
 > Play Factorio 2.1.24 in connected Arabic. This community translation patch includes **8,291 strings**, right-to-left reading order, and the Space Age content.
 
 [⬇ Download the latest release](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/releases/latest) · [🧩 Mod catalog](mods/README.md) · [📝 Changelog](CHANGELOG.md) · [Report an issue](https://github.com/mosa8899/Factorio_2.1.24_Arabic_Locale/issues/new)

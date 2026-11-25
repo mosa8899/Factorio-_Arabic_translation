@@ -64,13 +64,17 @@ def patch_dir(dpath, ar_files, dry=False):
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     cwd = os.getcwd()
-    base = cwd if os.path.isdir(os.path.join(cwd, 'locales')) else here
+    # إذا كنا داخل مجلد الحزمة (اللي حطّيتو داخل mods) → المودات في المجلد الأب
+    is_pack = os.path.basename(here).lower().startswith('mods_arabic_locale')
+    base = os.path.dirname(here) if is_pack else here
+    if os.path.isdir(os.path.join(cwd, 'locales')) and not is_pack:
+        base = cwd
     p = argparse.ArgumentParser(description='تعريب مودات Factorio (ذكي — يتجاهل الإصدار)')
     p.add_argument('--base', default=base)
     p.add_argument('--dry-run', action='store_true')
     a = p.parse_args()
 
-    loc_root = os.path.join(a.base, 'locales')
+    loc_root = os.path.join(here, 'locales') if is_pack else os.path.join(a.base, 'locales')
     if not os.path.isdir(loc_root):
         print('❌ ما لقيت مجلد locales — فكّ الحزمة داخل مجلد mods أولاً.')
         return 1
@@ -131,7 +135,7 @@ def main():
         print(tip); log.append(tip)
     log.append('=== انتهى ===')
     try:
-        open(os.path.join(a.base, 'translation_result.txt'), 'w', encoding='utf-8').write('\n'.join(log) + '\n')
+        open(os.path.join(here, 'translation_result.txt'), 'w', encoding='utf-8').write('\n'.join(log) + '\n')
     except Exception:
         pass
     return 0

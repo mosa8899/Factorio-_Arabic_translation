@@ -117,6 +117,8 @@ def main():
         if not key:
             continue
         ar_dir = os.path.join(loc_root, key, 'locale', 'ar')
+        if not os.path.isdir(ar_dir):
+            continue
         ar_files = [(f, open(os.path.join(ar_dir, f), 'rb').read())
                     for f in sorted(os.listdir(ar_dir)) if f.endswith('.cfg')]
         if not ar_files:

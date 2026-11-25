@@ -1,37 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-تطبيق تعريب مودات Factorio — النسخة السهلة
+تطبيق تعريب مودات Factorio — ذكي وآمن
 
-كيف تستعملو (بدون أوامر):
-  1. فكّ Mods_Arabic_Locale_Pack.zip مباشرة داخل مجلد mods بتاع اللعبة.
-  2. شغّل run.bat (ويندوز) أو run.sh (لينكس/ماك) — أو شغّل هذا الملف.
-  3. خلاص. السكريبت يعرف المودات لوحده ويضيفlocale/ar/.
+- يتعرّف على المود من info.json داخلو (اسم المود الحقيقي)، مش من اسم الملف.
+- يشتغل مع أي إصدار وأي اسم ملف (حتى لو سمّيتو "موسى" أو "عبد الله").
+- يضيف locale/ar/ فقط — ما يمسح ولا يبدّل أي ملف من اللعبة أو من المود.
+- إعادة التشغيل بعد تحديث أي مود تعاود تعريبه تلقائياً.
 
-يعمل مع المودات المضغوطة (.zip) والمفكوكة (مجلدات)،
-ومع أي إصدار من نفس المود (المطابقة بالاسم مش بالإصدار).
+الاستعمال: فكّ الحزمة داخل مجلد mods، ثم شغّل run.bat أو ./run.sh
 """
-import os, re, sys, zipfile, shutil, argparse
+import os, re, sys, json, zipfile, shutil, argparse
 
-def norm(s):
-    return s.lower().replace('_', '-')
+def read_identity(path, is_zip):
+    """يرجع اسم المود من info.json أو None"""
+    try:
+        if is_zip:
+            with zipfile.ZipFile(path) as z:
+                for n in z.namelist():
+                    if n.lower().endswith('/info.json') or n.lower() == 'info.json':
+                        data = z.read(n).decode('utf-8', errors='replace')
+                        return json.loads(data).get('name', '').lower()
+        else:
+            for root, dirs, files in os.walk(path):
+                if 'info.json' in files:
+                    data = open(os.path.join(root, 'info.json'), encoding='utf-8', errors='replace').read()
+                    return json.loads(data).get('name', '').lower()
+                if root.count(os.sep) > path.count(os.sep) + 2:
+                    break
+    except Exception:
+        pass
+    return None
 
-def matches(key, filename, is_dir=False):
-    """هل هذا الملف/المجلد هو نفس المود (أي إصدار كان)؟"""
-    k = norm(key)
-    f = norm(filename)
-    if f.endswith('.zip'):
-        f = f[:-4]
-    if is_dir:
-        return f == k
-    # aai-containers_0.4.0 -> aai-containers
-    return f == k or bool(re.match(r'^' + re.escape(k) + r'[-_.]?\d', f))
-
-def patch_zip(zpath, ar_files, backup=False, dry=False):
+def patch_zip(zpath, ar_files, dry=False):
     if dry:
         return len(ar_files)
-    if backup:
-        shutil.copy2(zpath, zpath + '.ar-backup')
     tmp = zpath + '.ar.tmp'
     with zipfile.ZipFile(zpath, 'r') as zin, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED) as zout:
         names = zin.namelist()
@@ -39,9 +42,9 @@ def patch_zip(zpath, ar_files, backup=False, dry=False):
         existing = set(names)
         for item in zin.infolist():
             zout.writestr(item, zin.read(item.filename))
-        for name, data in ar_files:
-            arc = f'{root}locale/ar/{name}'
-            if arc in existing:
+        for fname, data in ar_files:
+            arc = f'{root}locale/ar/{fname}'
+            if arc in existing:      # موجود أصلاً → ما نكرّروش
                 continue
             zout.writestr(arc, data)
     shutil.move(tmp, zpath)
@@ -52,72 +55,72 @@ def patch_dir(dpath, ar_files, dry=False):
         return len(ar_files)
     dst = os.path.join(dpath, 'locale', 'ar')
     os.makedirs(dst, exist_ok=True)
-    for name, data in ar_files:
-        with open(os.path.join(dst, name), 'wb') as f:
-            f.write(data)
+    for fname, data in ar_files:
+        p = os.path.join(dst, fname)
+        if not os.path.exists(p):
+            open(p, 'wb').write(data)
     return len(ar_files)
 
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     cwd = os.getcwd()
-    # إذا كان المستخدم فكّ الحزمة في مجلد المودات وفتح المجلد، نستعمل مكان تشغيله
     base = cwd if os.path.isdir(os.path.join(cwd, 'locales')) else here
-    p = argparse.ArgumentParser(description='تطبيق تعريب المودات على مجلد mods')
-    p.add_argument('--locale-root', default=os.path.join(base, 'locales'))
-    p.add_argument('--mods-dir', default=base)
+    p = argparse.ArgumentParser(description='تعريب مودات Factorio (ذكي — يتجاهل الإصدار)')
+    p.add_argument('--base', default=base)
     p.add_argument('--dry-run', action='store_true')
-    p.add_argument('--backup', action='store_true', help='احتفظ بنسخة .ar-backup قبل التعديل')
-    p.add_argument('--skip-existing', action='store_true')
     a = p.parse_args()
 
-    if not os.path.isdir(a.locale_root):
-        print(f'❌ ما لقيت مجلد التعريب: {a.locale_root}')
-        print('   فكّ Mods_Arabic_Locale_Pack.zip داخل مجلد mods أولاً.')
-        return 1
-    if not os.path.isdir(a.mods_dir):
-        print(f'❌ ما لقيت مجلد المودات: {a.mods_dir}')
+    loc_root = os.path.join(a.base, 'locales')
+    if not os.path.isdir(loc_root):
+        print('❌ ما لقيت مجلد locales — فكّ الحزمة داخل مجلد mods أولاً.')
         return 1
 
-    entries = os.listdir(a.mods_dir)
-    zips = [x for x in entries if x.lower().endswith('.zip')]
-    dirs = [x for x in entries if os.path.isdir(os.path.join(a.mods_dir, x)) and x.lower() not in ('locales',)]
+    # خريطة: اسم المود الحقيقي ← مجلد التعريب
+    mp_path = os.path.join(loc_root, 'mod_map.json')
+    mp = {}
+    if os.path.isfile(mp_path):
+        try:
+            mp = {k.lower(): v for k, v in json.load(open(mp_path, encoding='utf-8')).items()}
+        except Exception:
+            pass
+    keys = {k.lower(): k for k in os.listdir(loc_root)
+            if os.path.isdir(os.path.join(loc_root, k, 'locale', 'ar'))}
+    for k in keys:
+        mp.setdefault(k, keys[k])
 
-    keys = [k for k in sorted(os.listdir(a.locale_root))
-            if os.path.isdir(os.path.join(a.locale_root, k, 'locale', 'ar'))]
-    patched = skipped = 0
+    patched = 0
+    items = []
+    for name in sorted(os.listdir(a.base)):
+        full = os.path.join(a.base, name)
+        if name.lower().endswith('.zip'):
+            items.append((full, True, name))
+        elif os.path.isdir(full) and name.lower() not in ('locales',):
+            items.append((full, False, name))
 
-    for key in keys:
-        ar_dir = os.path.join(a.locale_root, key, 'locale', 'ar')
+    for full, is_zip, label in items:
+        ident = read_identity(full, is_zip)
+        key = mp.get(ident or '') if ident else None
+        if not key:
+            # fallback: مطابقة بالاسم كـ prefix (أي إصدار)
+            low = label.lower()
+            if low.endswith('.zip'):
+                low = low[:-4]
+            for k in keys:
+                if low == k or re.match(r'^' + re.escape(k) + r'[-_.]?\d', low):
+                    key = keys[k]
+                    break
+        if not key:
+            continue
+        ar_dir = os.path.join(loc_root, key, 'locale', 'ar')
         ar_files = [(f, open(os.path.join(ar_dir, f), 'rb').read())
                     for f in sorted(os.listdir(ar_dir)) if f.endswith('.cfg')]
         if not ar_files:
             continue
-        found = []
+        n = patch_zip(full, ar_files, a.dry_run) if is_zip else patch_dir(full, ar_files, a.dry_run)
+        print(('🔍 ' if a.dry_run else '✅ ') + f'{label}  ←  {n} ملف عربي')
+        patched += 1
 
-        # 1) مجلدات مودات مفكوكة
-        for d in dirs:
-            if matches(key, d, is_dir=True):
-                found.append((os.path.join(a.mods_dir, d), 'dir', d))
-        # 2) ملفات zip
-        for z in zips:
-            if matches(key, z):
-                found.append((os.path.join(a.mods_dir, z), 'zip', z))
-
-        if not found:
-            print(f'⏭️  {key}: المود غير مثبّت (عادي)')
-            skipped += 1
-            continue
-
-        for path, kind, label in found:
-            n = patch_zip(path, ar_files, a.backup, a.dry_run) if kind == 'zip' \
-                else patch_dir(path, ar_files, a.dry_run)
-            state = '[معاينة] ' if a.dry_run else '✅ '
-            print(f'{state}{label} ← {n} ملف عربي')
-            patched += 1
-
-    print(f'\nالنتيجة: {patched} مود عربي، {skipped} غير مثبّت.')
-    if a.dry_run:
-        print('(كانت معاينة فقط — ما تغيّر شي)')
+    print(f'\nالنتيجة: {patched} مود تعرّب.' + (' (معاينة فقط)' if a.dry_run else ''))
     return 0
 
 if __name__ == '__main__':
